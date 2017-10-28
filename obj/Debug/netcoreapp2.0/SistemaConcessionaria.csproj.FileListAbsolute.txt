@@ -1,0 +1,10 @@
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\bin\Debug\netcoreapp2.0\SistemaConcessionaria.deps.json
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\bin\Debug\netcoreapp2.0\SistemaConcessionaria.runtimeconfig.json
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\bin\Debug\netcoreapp2.0\SistemaConcessionaria.runtimeconfig.dev.json
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\bin\Debug\netcoreapp2.0\SistemaConcessionaria.dll
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\bin\Debug\netcoreapp2.0\SistemaConcessionaria.pdb
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\obj\Debug\netcoreapp2.0\SistemaConcessionaria.csproj.CoreCompileInputs.cache
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\obj\Debug\netcoreapp2.0\SistemaConcessionaria.AssemblyInfoInputs.cache
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\obj\Debug\netcoreapp2.0\SistemaConcessionaria.AssemblyInfo.cs
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\obj\Debug\netcoreapp2.0\SistemaConcessionaria.dll
+C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\obj\Debug\netcoreapp2.0\SistemaConcessionaria.pdb

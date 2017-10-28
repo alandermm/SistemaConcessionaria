@@ -4,20 +4,21 @@ using NetOffice.ExcelApi;
 public class Cadastro<T>{
     private DateTime dataCadastro {get; set;}
 
-    static void CriarExcel(String arquivo, T registro){
+    public void CriarExcel(String arquivo, T registro){
         Application ex = new Application();
         ex.Workbooks.Add();
         var propriedades = registro.GetType().GetProperties();
-
+        int ultimaLinha = getUltimaLinha();
+        int campo = 1;
         foreach(var propriedade in propriedades){
-            ex.Cells[getUltimaLinha,1].Value = "Ford";
+            ex.Cells[ultimaLinha, campo].Value = propriedade.GetValue(typeof(String));
+            campo++;
         }
-        //
         ex.ActiveWorkbook.SaveAs(arquivo);
         ex.Quit();
     }
 
-    static void LerExcel(){
+    public void LerExcel(){
         Application ex = new Application();
         ex.Workbooks.Open(@"C:\Users\01317235614\Desktop\Orientacao\excel\carros.xlsx");
         string valor = ex.Cells[1,2].Value.ToString();
@@ -31,7 +32,7 @@ public class Cadastro<T>{
         ex.Workbooks.Add();
         do{
             contador++;
-        } while (ex.Cells[contador,1] != null);
+        } while (ex.Cells[contador,1].Value != null);
         ex.Quit();
         return contador;
     }
