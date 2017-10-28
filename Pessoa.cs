@@ -1,10 +1,9 @@
 using System;
 public class Pessoa{
-    private String nome {get; set;}
-    private String email {get; set;}
-    private String cpf {get; set;}
-    private DateTime dataCadastro {get; set;}
-    private Endereco endereco {get; set;}
+    public string nome {get; set;}
+    public string email {get; set;}
+    public string cpf {get; set;}
+    public Endereco endereco {get; set;}
     //private String[] dados;
 
     public void iniciarDados(){

@@ -6,12 +6,15 @@ namespace SistemaConcessionaria
     {
         static void Main(string[] args)
         {
-            Pessoa p1 = new Pessoa();
+            /*Pessoa p1 = new Pessoa();
             p1.iniciarDados();
-
             Cadastro<Pessoa> cadastro = new Cadastro<Pessoa>();
-            cadastro.CriarExcel(@"C:\Users\01317235614\Desktop\Orientacao\SistemaConcessionaria\pessoas.xlsx", p1);
+            cadastro.CriarExcel(@"c:\Users\alander\CodeXP\SistemaConcessionaria\pessoas.xlsx", p1);*/
 
+            Carro c1 = new Carro();
+            c1.iniciarDados();
+            Cadastro<Carro> cadastro = new Cadastro<Carro>();
+            cadastro.CriarExcel(@"c:\Users\alander\CodeXP\SistemaConcessionaria\carros.xlsx", c1);
         }
     }
 }

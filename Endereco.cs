@@ -1,5 +1,6 @@
+using System;
 public class Endereco {
-    public string rua { get; set;}
+    public String rua { get; set;}
     public int numero { get; set;}
-    public string bairro { get; set;}
+    public String bairro { get; set;}
 }

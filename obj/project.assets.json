@@ -726,23 +726,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\01317235614\\.nuget\\packages\\": {},
+    "C:\\Users\\alander\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\01317235614\\Desktop\\Orientacao\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
+      "projectUniqueName": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
       "projectName": "SistemaConcessionaria",
-      "projectPath": "c:\\Users\\01317235614\\Desktop\\Orientacao\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
-      "packagesPath": "C:\\Users\\01317235614\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\01317235614\\Desktop\\Orientacao\\SistemaConcessionaria\\obj\\",
+      "projectPath": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
+      "packagesPath": "C:\\Users\\alander\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\01317235614\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\alander\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
