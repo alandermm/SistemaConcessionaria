@@ -732,11 +732,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
+      "projectUniqueName": "C:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
       "projectName": "SistemaConcessionaria",
-      "projectPath": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
+      "projectPath": "C:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\SistemaConcessionaria.csproj",
       "packagesPath": "C:\\Users\\alander\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\obj\\",
+      "outputPath": "C:\\Users\\alander\\CodeXP\\SistemaConcessionaria\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

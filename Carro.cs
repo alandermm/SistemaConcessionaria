@@ -5,9 +5,8 @@ public class Carro{
     public string cor {get; set;}
     public int kilometragem {get; set;}
     public string placa {get; set;}
-    public string chassi {get; set;}
-    
-    //private String[] dados;
+    //public string chassi {get; set;}
+    public OpcionaisCarro opcionais;
 
     public void iniciarDados(){
         Console.Write("Marca do carro: ");
@@ -18,10 +17,7 @@ public class Carro{
         this.cor = Console.ReadLine();
         Console.Write("Kilometragem: ");
         this.kilometragem = Int32.Parse(Console.ReadLine());
-        //this.kilometragem = Console.ReadLine();
         Console.Write("placa: ");
         this.placa = Console.ReadLine();
     }
-
-
 }
