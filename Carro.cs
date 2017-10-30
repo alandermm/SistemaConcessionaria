@@ -1,32 +1,75 @@
 using System;
 public class Carro{
-    public string marca {get; set;}
-    public string modelo {get; set;}
-    public string cor {get; set;}
-    public int kilometragem {get; set;}
-    public string placa {get; set;}
-    public bool novo {get; set;}
-    public bool disponivel {get; set;}
-    //public string chassi {get; set;}
-    public OpcionaisCarro opcionais;
-    public void iniciarDados(){
-        Console.Write("Marca do carro: ");
-        this.marca = Console.ReadLine();
-        Console.Write("Modelo do carro: ");
-        this.modelo = Console.ReadLine();
-        Console.Write("Cor do carro: ");
-        this.cor = Console.ReadLine();
-        Console.Write("O carro é 0Km? (s, n) : ");
-        if(Console.ReadLine().Substring(0,1).ToUpper() == "S"){
-            this.novo = true;
-            this.kilometragem = 0;
-        } else {
-            this.novo = false;
-            Console.Write("Kilometragem: ");
-            this.kilometragem = Int32.Parse(Console.ReadLine());
-            Console.Write("placa: ");
-            this.placa = Console.ReadLine();
-        }
-        this.disponivel = true;    
+    private string marca {get; set;}
+    private string modelo {get; set;}
+    private string cor {get; set;}
+    private int kilometragem {get; set;}
+    private string placa {get; set;}
+    private bool novo {get; set;}
+    private bool disponivel {get; set;}
+    private OpcionaisCarro opcionais;
+
+    public String getMarca(){
+        return this.marca;
+    }
+
+    public void setMarca(String marca){
+        this.marca = marca;
+    }
+
+    public String getModelo(){
+        return this.modelo;
+    }
+
+    public void setModelo(String modelo){
+        this.modelo = modelo;
+    }
+
+    public String getCor(){
+        return this.cor;
+    }
+
+    public void setCor(String cor){
+        this.cor = cor;
+    }
+
+    public int getKilometragem(){
+        return this.kilometragem;
+    }
+
+    public void setKilometragem(int kilometragem){
+        this.kilometragem = kilometragem;
+    }
+
+    public String getPlaca(){
+        return this.placa;
+    }
+
+    public void setPlaca(String placa){
+        this.placa = placa;
+    }
+
+    public bool getNovo(){
+        return this.novo;
+    }
+
+    public void setNovo(bool novo){
+        this.novo = novo;
+    }
+    
+    public bool getDisponivel(){
+        return this.disponivel;
+    }
+
+    public void setDisponivel(bool disponivel){
+        this.disponivel = disponivel;
+    }
+
+    public OpcionaisCarro getOpcionais(){
+        return this.opcionais;
+    }
+
+    public void setOpcionais(OpcionaisCarro opcionais){
+        this.opcionais = opcionais;
     }
 }

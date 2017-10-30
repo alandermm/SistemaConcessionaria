@@ -17,23 +17,17 @@ public class Menu{
             switch(opt){
                 case 0: Environment.Exit(0); break;
                 case 1: 
-                        Pessoa pessoa = new Pessoa();
                         string tipoDoc = mostrarMenuTipoCliente();
-                        pessoa.iniciarDados(tipoDoc);
+                        Pessoa pessoa = iniciarPessoa(tipoDoc);
                         Cadastro<Pessoa> cadastroCliente = new Cadastro<Pessoa>();
-                        string arquivo;
-                        if(tipoDoc == "CPF"){
-                            arquivo = "PessoasFisicas.xlsx";
-                        } else {
-                            arquivo = "PessoasJuridicas";
-                        }
-                        cadastroCliente.salvar(@"c:\Users\alander\CodeXP\SistemaConcessionaria\" + arquivo, pessoa);
+                        string arquivo = tipoDoc == "CPF" ? "PessoasFisicas.xlsx" : "PessoasJuridicas.xlsx";
+                        cadastroCliente.salvar(AppDomain.CurrentDomain.BaseDirectory.ToString() + arquivo, pessoa);
                         break;
 
                 case 2: Carro carro = new Carro();
                         carro.iniciarDados();
                         Cadastro<Carro> cadastroCarro = new Cadastro<Carro>();
-                        cadastroCarro.salvar(@"c:\Users\alander\CodeXP\SistemaConcessionaria\carros.xlsx", carro);
+                        cadastroCarro.salvar(AppDomain.CurrentDomain.BaseDirectory.ToString(), carro);
                         break;
                 /*case 3: venderCarro(); break;
                 case 4: listarCarroVendidoDia(); break;*/
@@ -54,5 +48,54 @@ public class Menu{
         } else {
             return "CNPJ";
         }
+    }
+
+    private Pessoa iniciarPessoa(String tipoDoc){
+        Pessoa pessoa = new Pessoa();
+        Console.Write("Nome do Cliente: ");
+        pessoa.setNome(Console.ReadLine());
+        Console.Write("Email do cliente: ");
+        pessoa.setEmail(Console.ReadLine());
+        Console.Write(tipoDoc + " do cliente: ");
+        if(tipoDoc == "CPF")
+            pessoa.setDocumento(new Validacao().pedirCPF());
+        else 
+            pessoa.setDocumento(new Validacao().pedirCNPJ());
+        pessoa.setEndereco(iniciarEnredeco());
+        return pessoa;
+    }
+
+    private Endereco iniciarEnredeco(){
+        Endereco endereco = new Endereco();
+        Console.Write("Rua: ");
+        endereco.setRua(Console.ReadLine());
+        Console.Write("Número: ");
+        endereco.setNumero(Int16.Parse(Console.ReadLine()));
+        Console.Write("Bairro: ");
+        endereco.setBairro(Console.ReadLine());
+        return endereco;
+    }
+
+    private Carro iniciarCarro(){
+        Carro carro = new Carro();
+        Console.Write("Marca do carro: ");
+        carro.marca = Console.ReadLine();
+        Console.Write("Modelo do carro: ");
+        carro.modelo = Console.ReadLine();
+        Console.Write("Cor do carro: ");
+        carro.cor = Console.ReadLine();
+        Console.Write("O carro é 0Km? (s, n) : ");
+        if(Console.ReadLine().Substring(0,1).ToUpper() == "S"){
+            carro.novo = true;
+            carro.kilometragem = 0;
+        } else {
+            carro.novo = false;
+            Console.Write("Kilometragem: ");
+            carro.kilometragem = Int32.Parse(Console.ReadLine());
+            Console.Write("placa: ");
+            carro.placa = Console.ReadLine();
+        }
+        carro.disponivel = true;
+        return carro;
     }
 }

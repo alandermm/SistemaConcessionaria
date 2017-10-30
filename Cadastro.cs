@@ -35,7 +35,7 @@ public class Cadastro<T>{
             ex.ActiveWorkbook.SaveAs(arquivo);
         }
         ex.Quit();
-        ex.Dispose();
+        //ex.Dispose();
     }
     public void salvar(String arquivo, T registro){
         Application ex = new Application();
@@ -60,7 +60,7 @@ public class Cadastro<T>{
         ex.Cells[ultimaLinha, campo].Value = DateTime.Now;
         ex.ActiveWorkbook.Save();
         ex.Quit();
-        ex.Dispose();
+        //ex.Dispose();
     }
     public void ler(String arquivo, string busca){
         if(File.Exists(arquivo)){
@@ -82,7 +82,7 @@ public class Cadastro<T>{
                 contador++;
             } while (ex.Cells[contador,1].Value != null);
             ex.Quit();
-            ex.Dispose();
+            //ex.Dispose();
         } /*else {
             contador = 1;
         }*/
