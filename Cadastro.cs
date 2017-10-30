@@ -5,7 +5,6 @@ using System.IO;
 using NetOffice.ExcelApi;
 public class Cadastro<T>{
     private DateTime dataCadastro {get; set;}
-
     private void gerarCabecalho(String arquivo, T registro){
         Application ex = new Application();
         bool existeArquivo = File.Exists(arquivo);
@@ -17,10 +16,18 @@ public class Cadastro<T>{
         int campo = 1;
         if(!File.Exists(arquivo) || getUltimaLinha(arquivo) == 1){
             foreach(var item in registro.GetType().GetProperties()){
-                ex.Cells[1, campo].Value = item.Name;
-                campo++;
+                if(item.PropertyType.IsClass &&  item.PropertyType.Name != "String" && item.PropertyType.Name != "string") {
+                    var valor = item.GetValue(registro, null);
+                    foreach(var val in valor.GetType().GetProperties()){
+                        ex.Cells[1, campo].Value = val.Name.ToUpper();
+                        campo++;
+                    }
+                } else {
+                    ex.Cells[1, campo].Value = item.Name.ToUpper();
+                    campo++;
+                }
             }
-            ex.Cells[1, campo].Value = "Data Cadastro";
+            ex.Cells[1, campo].Value = "DATA CADASTRO";
         }
         if(existeArquivo){
             ex.ActiveWorkbook.Save();
@@ -28,8 +35,8 @@ public class Cadastro<T>{
             ex.ActiveWorkbook.SaveAs(arquivo);
         }
         ex.Quit();
+        ex.Dispose();
     }
-
     public void salvar(String arquivo, T registro){
         Application ex = new Application();
         if(!File.Exists(arquivo) || getUltimaLinha(arquivo) == 1){
@@ -53,8 +60,8 @@ public class Cadastro<T>{
         ex.Cells[ultimaLinha, campo].Value = DateTime.Now;
         ex.ActiveWorkbook.Save();
         ex.Quit();
+        ex.Dispose();
     }
-
     public void ler(String arquivo, string busca){
         if(File.Exists(arquivo)){
             Application ex = new Application();
@@ -66,7 +73,6 @@ public class Cadastro<T>{
             Console.WriteLine("O arquivo " + arquivo + " não foi encontrado!");
         }
     }
-
     private static int getUltimaLinha(String arquivo){
         int contador = 0;
         Application ex = new Application();
@@ -76,6 +82,7 @@ public class Cadastro<T>{
                 contador++;
             } while (ex.Cells[contador,1].Value != null);
             ex.Quit();
+            ex.Dispose();
         } /*else {
             contador = 1;
         }*/
