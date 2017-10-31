@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 public class Menu{
     public void mostrarMenuPrincipal(){
+        string path = Directory.GetCurrentDirectory();
         int opt;
         do {
             Console.WriteLine("Escola uma das opções abaixo\n"
@@ -22,18 +24,13 @@ public class Menu{
                         pessoa.iniciarDados(tipoDoc);
                         Cadastro<Pessoa> cadastroCliente = new Cadastro<Pessoa>();
                         string arquivo;
-                        if(tipoDoc == "CPF"){
-                            arquivo = "PessoasFisicas.xlsx";
-                        } else {
-                            arquivo = "PessoasJuridicas";
-                        }
-                        cadastroCliente.salvar(@"c:\Users\alander\CodeXP\SistemaConcessionaria\" + arquivo, pessoa);
+                        arquivo = tipoDoc == "CPF" ? arquivo = "PessoasFisicas.xlsx" : arquivo = "PessoasJuridicas.xlsx";
+                        cadastroCliente.salvar( path + arquivo, pessoa);
                         break;
-
                 case 2: Carro carro = new Carro();
                         carro.iniciarDados();
                         Cadastro<Carro> cadastroCarro = new Cadastro<Carro>();
-                        cadastroCarro.salvar(@"c:\Users\alander\CodeXP\SistemaConcessionaria\carros.xlsx", carro);
+                        cadastroCarro.salvar(path + "carros.xlsx", carro);
                         break;
                 /*case 3: venderCarro(); break;
                 case 4: listarCarroVendidoDia(); break;*/
@@ -49,7 +46,7 @@ public class Menu{
             Console.Write("Opção: ");
             tipoDoc = Console.ReadLine();
         } while( tipoDoc != "1" && tipoDoc != "2");
-        if (tipoDoc == "1"){
+        if (tipoDoc.Equals("1")){
             return "CPF";
         } else {
             return "CNPJ";

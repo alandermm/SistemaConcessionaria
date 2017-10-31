@@ -61,7 +61,6 @@ public class Validacao{
         return this.doc;
     }
     private bool validarCNPJ(){
-        //string primeiroDigito, segundoDigito;
         Regex rgx = new Regex(@"^\d*$");
         int[] chaveCNPJ = {5,4,3,2,9,8,7,6,5,4,3,2};
         int[] chaveCNPJ2 = {6,5,4,3,2,9,8,7,6,5,4,3,2};
