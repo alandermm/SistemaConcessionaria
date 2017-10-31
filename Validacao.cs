@@ -17,11 +17,9 @@ public class Validacao{
             soma += ((int)Char.GetNumericValue(tempdoc[i]) * chave[i]);
         }
         resto = soma % 11;
-        if(resto < 2){
-            return "0";
-        } else {
-            return (11-resto).ToString();
-        } 
+        
+        return resto < 2 ? "0" : (11-resto).ToString();
+    
     }
     public string pedirCPF(){
         do{

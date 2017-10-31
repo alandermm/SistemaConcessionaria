@@ -17,7 +17,7 @@ public class Carro{
         Console.Write("Cor do carro: ");
         this.cor = Console.ReadLine();
         Console.Write("O carro é 0Km? (s, n) : ");
-        if(Console.ReadLine().Substring(0,1).ToUpper() == "S"){
+        if(Console.ReadLine().Substring(0,1).ToUpper().Equals("S")){
             this.novo = true;
             this.kilometragem = 0;
         } else {

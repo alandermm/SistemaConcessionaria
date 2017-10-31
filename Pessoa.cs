@@ -12,12 +12,7 @@ public class Pessoa{
         this.email = Console.ReadLine();
         Console.Write(tipoDoc + " do cliente: ");
         Validacao documento = new Validacao();
-        if(tipoDoc == "CPF"){
-            this.documento = documento.pedirCPF();
-        } else {
-            this.documento = documento.pedirCNPJ();
-        }
-        //this.documento = Console.ReadLine();
+        this.documento = tipoDoc.Equals("CPF") ? documento.pedirCPF() : documento.pedirCNPJ();
         this.endereco = new Endereco();
         Console.Write("Rua: ");
         this.endereco.rua = Console.ReadLine();
