@@ -48,6 +48,41 @@ public class Venda{
         }
     }
 
+    public void listarCarrosVendidosDia(){
+        String arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
+        Application ex = new Application();
+        if (File.Exists(arquivo)){
+            ex.Workbooks.Open(arquivo);
+            int count = 0, linha = 1, campo = 1;
+            while(ex.Cells[1, campo].Value != null){
+                Console.Write(ex.Cells[1, campo].Value.ToString() + " | ");
+                campo++;
+            }
+            Console.WriteLine();
+            while(ex.Cells[linha, 1].Value != null){
+                DateTime data = DateTime.Parse(ex.Cells[linha, 15].Value.ToString());
+                data.ToShortDateString();
+                if(ex.Cells[linha, 15].Value.ToString().Equals("Sim")){
+                    codigos.Add(Int16.Parse(ex.Cells[linha, 1].Value.ToString()));
+                    campo = 1;
+                    count++;
+                    while(ex.Cells[linha, campo].Value != null){
+                        Console.Write(ex.Cells[linha, campo].Value.ToString() + " | ");
+                        campo++;
+                    }
+                    Console.WriteLine();
+                }
+                linha++;
+            }
+            Console.WriteLine("\n" + count + " Carros disponíveis." + "\n\n");
+            ex.ActiveWorkbook.Close();
+            ex.Quit();
+            ex.Dispose();
+        } else {
+            Console.WriteLine("O arquivo " + arquivo + " não foi encontrado.\n\n");
+        }
+    }
+
     public void salvar(String arquivo){
         Application ex = new Application();
         int ultimaLinha = new Cadastro().getUltimaLinha(arquivo);
