@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 using NetOffice.ExcelApi;
+
+/// <summary>
+/// Classe Carro
+/// </summary>
 public class Carro{
     public int codigo {get; set;}
     public string marca {get; set;}
@@ -13,6 +17,10 @@ public class Carro{
     //public string chassi {get; set;}
     public OpcionaisCarro opcionais;
     public double valor;
+
+    /// <summary>
+    /// Método para inicar dados de um objeto Carro
+    /// </summary>
     public void iniciarDados(){
         string arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
         this.codigo = (new Cadastro().getUltimaLinha(arquivo)) - 1;
@@ -55,6 +63,10 @@ public class Carro{
         this.disponivel = true;    
     }
 
+    /// <summary>
+    /// Método para salvar os dados do carro no arquivo de cadastro
+    /// </summary>
+    /// <param name="arquivo">Path completo para o arquivo de cadastro do carro</param>
     public void salvar(String arquivo){
         Application ex = new Application();
         int ultimaLinha = new Cadastro().getUltimaLinha(arquivo);
@@ -80,6 +92,11 @@ public class Carro{
         ex.Dispose();
     }
 
+    /// <summary>
+    /// Método para carregar um objeto carro
+    /// </summary>
+    /// <param name="codigoCarro">Código do carro a ser carregado no objeto</param>
+    /// <returns>Retorna o objeto Carro</returns>
     public Carro carregarCarro(int codigoCarro){
         String arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
         Application ex = new Application();
@@ -110,6 +127,10 @@ public class Carro{
         return carro;
     }
 
+    /// <summary>
+    /// Método para alterar o valor do campo Disponível para "Não"
+    /// </summary>
+    /// <param name="codigo">Código do carro vendido</param>
     public void vender(int codigo){
         Application ex = new Application();
         String arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
@@ -120,5 +141,4 @@ public class Carro{
         ex.Quit();
         ex.Dispose();
     }
-    
 }
