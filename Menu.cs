@@ -2,7 +2,14 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+
+/// <summary>
+/// Classe Menu
+/// </summary>
 public class Menu{
+    /// <summary>
+    /// Método para mostrar o menu principal
+    /// </summary>
     public void mostrarMenuPrincipal(){
         String path = Directory.GetCurrentDirectory() + "\\";
         int opt;
@@ -91,6 +98,11 @@ public class Menu{
             }
         } while(opt != 0);
     }
+
+    /// <summary>
+    /// Método para mostrar o Menu Tipo do Cliente
+    /// </summary>
+    /// <returns>Retorna "CPF" para pessoas físicas ou "CNPJ" para pessoas jurídicas</returns>
     private string mostrarMenuTipoCliente(){
         string tipoDoc;
         Console.WriteLine("Escolha o tipo do cliente:\n"
@@ -103,6 +115,11 @@ public class Menu{
         return tipoDoc.Equals("1") ? "CPF" : "CNPJ";
     }
 
+    /// <summary>
+    /// Método para mostrar o menu para selecionar o carro para venda
+    /// </summary>
+    /// <param name="resultado">Lista dos códigos dos carros disponíveis para venda</param>
+    /// <returns>retorna inteiro com o código do carro</returns>
     private int mostrarMenuSelecionarCarro(List<int> resultado){
         int opt;
         if(resultado.Count != 0){
@@ -115,6 +132,10 @@ public class Menu{
         return 0;
     }
 
+    /// <summary>
+    /// Método para mostrar o menu para seleção da condição de pagamento
+    /// </summary>
+    /// <returns>Retorna "À Vista" ou "Parcelado"</returns>
     private String mostrarMenuSelecionarCondicaoPagamento(){
         int opt;
         do{
