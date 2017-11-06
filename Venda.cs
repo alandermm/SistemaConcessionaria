@@ -3,6 +3,10 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using NetOffice.ExcelApi;
+
+/// <summary>
+/// Classe Venda
+/// </summary>
 public class Venda{
     //public bool parcelado {get; set;}
     public String pagamento {get; set;}
@@ -12,6 +16,10 @@ public class Venda{
     public double valorVenda {get; set;}
     public double valorParcela {get; set;}
 
+    /// <summary>
+    /// Método para listar os carros disponíveis para venda
+    /// </summary>
+    /// <returns>Lista de códigos dos carros disponíveis para venda</returns>
     public List<int> listarCarrosDisponiveis(){
         String arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
         List<int> codigos = new List<int>();
@@ -48,6 +56,9 @@ public class Venda{
         }
     }
 
+    /// <summary>
+    /// Método para listar as vendas de carro do dia
+    /// </summary>
     public void listarCarrosVendidosDia(){
         String arquivo = Directory.GetCurrentDirectory() + "\\Carros.xlsx";
         Application ex = new Application();
@@ -83,6 +94,10 @@ public class Venda{
         }
     }
 
+    /// <summary>
+    /// Método para salvar os dados da venda no arquivo de cadastro
+    /// </summary>
+    /// <param name="arquivo">Path completo para o arquivo de cadastro de vendas</param>
     public void salvar(String arquivo){
         Application ex = new Application();
         int ultimaLinha = new Cadastro().getUltimaLinha(arquivo);
