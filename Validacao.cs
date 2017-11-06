@@ -1,14 +1,30 @@
 using System;
 using System.Text.RegularExpressions;
+
+/// <summary>
+/// Classe Validação
+/// </summary>
 public class Validacao{
     //private static string doc;
     private string doc {get; set;}
     private string primeiroDigito {get; set;}
     private string segundoDigito {get; set;}
     private bool valido {get; set;} = false;
+
+    /// <summary>
+    /// Método para limpar os caracteres espaços, / - e . do valor lido da console
+    /// </summary>
+    /// <param name="doc">Número do documento</param>
+    /// <returns>Retorna Documento sem caracteres especiais</returns>
     private string limparCaracteresDocumento(string doc){
         return doc.Trim().Replace("/","").Replace("-","").Replace(".","");
     }
+
+    /// <summary>
+    /// Método para validar os dígitos verificadores dos documentos
+    /// </summary>
+    /// <param name="chave">Chave para cálculo de verificação do dígito</param>
+    /// <returns>Retorna dígito verificado</returns>
     private string validarDigito(int[] chave = null){
         string tempdoc;
         int soma = 0, resto = 0;
@@ -21,6 +37,11 @@ public class Validacao{
         return resto < 2 ? "0" : (11-resto).ToString();
     
     }
+
+    /// <summary>
+    /// Método para pedir o CPF pela console
+    /// </summary>
+    /// <returns>Retorna o documento limpo dos caracteres especiais e já validado</returns>
     public string pedirCPF(){
         do{
             this.doc = limparCaracteresDocumento(Console.ReadLine());
@@ -28,6 +49,11 @@ public class Validacao{
         } while (!this.valido);
         return this.doc;
     }
+
+    /// <summary>
+    /// Método para validar o CPF
+    /// </summary>
+    /// <returns>Retorna true se o CPF é válido</returns>
     private bool validarCPF(){
         //string primeiroDigito, segundoDigito;
         Regex rgx = new Regex(@"^\d*$");
@@ -51,6 +77,11 @@ public class Validacao{
             }
         }
     }
+
+    /// <summary>
+    /// Método para solicitar o CNPJ pela console
+    /// </summary>
+    /// <returns>Retorna o CNPJ já limpo e validado</returns>
     public string pedirCNPJ(){
         do{
             this.doc = limparCaracteresDocumento(Console.ReadLine());
@@ -58,6 +89,11 @@ public class Validacao{
         } while (!this.valido);
         return this.doc;
     }
+
+    /// <summary>
+    /// Método para validação do CNPJ
+    /// </summary>
+    /// <returns>Retorna true se o CNPJ é válido</returns>
     private bool validarCNPJ(){
         //string primeiroDigito, segundoDigito;
         Regex rgx = new Regex(@"^\d*$");
