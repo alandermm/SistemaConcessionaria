@@ -87,7 +87,7 @@ public class Menu{
                             Console.WriteLine("No momento não existem carros disponíveis para venda!");
                         }
                         break;
-                /*case 4: listarCarroVendidoDia(); break;*/
+                case 4: new Venda().listarCarrosVendidosDia(); break;
             }
         } while(opt != 0);
     }
