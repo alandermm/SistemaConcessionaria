@@ -2,7 +2,16 @@ using System;
 using System.IO;
 using System.Collections;
 using NetOffice.ExcelApi;
+
+/// <summary>
+/// Classe Cadastro
+/// </summary>
 public class Cadastro{
+    /// <summary>
+    /// Método que entrega a ultima linha do arquivo passado como referência
+    /// </summary>
+    /// <param name="arquivo">Path completo do arquivo de cadastro</param>
+    /// <returns>Retorna o número da última linha do arquivo de cadastro</returns>
     public int getUltimaLinha(String arquivo){
         int contador = 0;
         Application ex = new Application();
@@ -20,6 +29,11 @@ public class Cadastro{
         return contador;
     }
 
+    /// <summary>
+    /// Método para gerar o cabeçalho dos arquivos de cadastro
+    /// </summary>
+    /// <param name="arquivo">Path completo do arquivo de cadastro </param>
+    /// <param name="cabecalho"></param>
     public void gerarCabecalho(String arquivo, String[] cabecalho){
             Application ex = new Application();
             bool existeArquivo = File.Exists(arquivo);
