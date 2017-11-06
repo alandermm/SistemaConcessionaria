@@ -1,8 +1,10 @@
 using System;
+using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 public class Menu{
     public void mostrarMenuPrincipal(){
-        String path = AppDomain.CurrentDomain.BaseDirectory.ToString();
+        String path = Directory.GetCurrentDirectory() + "\\";
         int opt;
         do {
             Console.WriteLine("Escola uma das opções abaixo\n"
@@ -22,37 +24,68 @@ public class Menu{
                         Pessoa pessoa = new Pessoa();
                         string tipoDoc = mostrarMenuTipoCliente();
                         pessoa.iniciarDados(tipoDoc);
-                        Cadastro<Pessoa> cadastroCliente = new Cadastro<Pessoa>();
                         string arquivo;
-                        arquivo = tipoDoc.Equals("CPF") ? "PessoasFisicas.xlsx" : "PessoasJuridicas.xlsx";
-                        cadastroCliente.salvar(path + arquivo, pessoa);
+                        arquivo = tipoDoc.Equals("CPF") ? path + "PessoasFisicas.xlsx" : path + "PessoasJuridicas.xlsx";
+                        if (!File.Exists(arquivo)){
+                            if(!File.Exists(arquivo) || new Cadastro().getUltimaLinha(arquivo) == 1){
+                                String[] cabecalho = new String[]{"Documento", "Nome", "E-mail", "Rua", "Número", "Bairro", "Data Cadastro"};
+                                new Cadastro().gerarCabecalho(arquivo, cabecalho);
+                            }
+                        }
+                        pessoa.salvar(arquivo);
                         break;
 
                 case 2: Carro carro = new Carro();
+                        arquivo = path + "Carros.xlsx";
+                        if (!File.Exists(arquivo)){
+                            if(!File.Exists(arquivo) || new Cadastro().getUltimaLinha(arquivo) == 1){
+                                String[] cabecalho = new String[]{"Código", "Marca", "Modelo", "Cor", "Novo", "Kilometragem", "Placa",
+                                                                "Ar Condicionado", "Alarme", "Direção Hidráulica", "Trava Elétrica" ,
+                                                                "Som", "Disponível", "Valor", "Data Cadastro"
+                                };
+                                new Cadastro().gerarCabecalho(arquivo, cabecalho);
+                            }
+                        }
                         carro.iniciarDados();
-                        Cadastro<Carro> cadastroCarro = new Cadastro<Carro>();
-                        cadastroCarro.salvar(path + "carros.xlsx", carro);
+                        carro.salvar(arquivo);
                         break;
                 case 3: Venda venda = new Venda();
-                        ArrayList resultado;
-                        Cadastro<Venda> cadastroVenda = new Cadastro<Venda>();
-                        resultado = cadastroVenda.buscar(path + "carros.xlsx", "disponivel".ToUpper(), "true");
-                        int codigoCarro = mostrarMenuSelecionarCarro(resultado);
-                        Carro carroVendido = new Carro();
-                        carroVendido = cadastroVenda.carregarObjeto(codigoCarro, path + "carros.xlsx", carroVendido);
-                        venda.pagamento = mostrarMenuSelecionarCondicaoPagamento();
-                        if(venda.pagamento.Equals("Parcelado")){
-                            int parcela = 0;
-                            do{
-                                Console.Write("Digite a quantidade de parcelas (2 a 60): ");
-                                parcela = Int16.Parse(Console.ReadLine());
-                            }while(parcela > 1 && parcela < 60 );
-                            venda.parcelas = parcela;
+                        arquivo = path + "Vendas.xlsx";
+                        string arquivoCarro = path + "Carros.xlsx";
+                        List<int> codigos = venda.listarCarrosDisponiveis();
+                        int codigoCarro = mostrarMenuSelecionarCarro(codigos);
+                        if(codigoCarro > 0){
+                            venda.carro = new Carro().carregarCarro(codigoCarro);
+                            venda.pagamento = mostrarMenuSelecionarCondicaoPagamento();
+                            if(venda.pagamento.Equals("Parcelado")){
+                                int parcelas = 0;
+                                do{
+                                    Console.Write("Digite a quantidade de parcelas (2 a 60): ");
+                                    parcelas = Int16.Parse(Console.ReadLine());
+                                }while(parcelas < 2 || parcelas > 60 );
+                                venda.parcelas = parcelas;
+                                venda.valorVenda = venda.carro.valor;
+                                venda.valorParcela = venda.valorVenda / venda.parcelas;
+                            } else {
+                                venda.parcelas = 1;
+                                venda.valorVenda = venda.carro.valor * 0.95;
+                                venda.valorParcela = venda.valorVenda;
+                            }
+                            //Selecionar Cliente
+                            tipoDoc = mostrarMenuTipoCliente();
+                            string arquivoCliente = tipoDoc.Equals("CPF")? path + "PessoasFisicas.xlsx" : path + "PessoasJuridicas.xlsx";
+                            string doc = tipoDoc.Equals("CPF") ? new Validacao().pedirCPF() : new Validacao().pedirCNPJ();
+                            venda.cliente = new Pessoa().carregarPessoa(Int64.Parse(doc) , arquivoCliente);
+                            if (!File.Exists(arquivo)){
+                                if(!File.Exists(arquivo) || new Cadastro().getUltimaLinha(arquivo) == 1){
+                                    String[] cabecalho = new String[]{"Código Carro", "Documento Cliente", "Pagamento", "Parcelas", "Valor Carro", "Valor Venda", "Data Venda"};
+                                    new Cadastro().gerarCabecalho(arquivo, cabecalho);
+                                }
+                            }
+                            venda.salvar(arquivo);
                         } else {
-                            venda.parcelas = 1;
-                            
+                            Console.WriteLine("No momento não existem carros disponíveis para venda!");
                         }
-
                         break;
                 /*case 4: listarCarroVendidoDia(); break;*/
             }
@@ -70,13 +103,16 @@ public class Menu{
         return tipoDoc.Equals("1") ? "CPF" : "CNPJ";
     }
 
-    private int mostrarMenuSelecionarCarro(ArrayList resultado){
+    private int mostrarMenuSelecionarCarro(List<int> resultado){
         int opt;
-        do{
-            Console.Write("Digite o código do carro: ");
-            opt = Int16.Parse(Console.ReadLine());
-        }while(!resultado.Contains(opt));
-        return opt;
+        if(resultado.Count != 0){
+            do{
+                Console.Write("Digite o código do carro: ");
+                opt = Int16.Parse(Console.ReadLine());
+            }while(!resultado.Contains(opt));
+            return opt;
+        }
+        return 0;
     }
 
     private String mostrarMenuSelecionarCondicaoPagamento(){

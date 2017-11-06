@@ -1,95 +1,49 @@
 using System;
-using System.Collections;
-using System.Reflection;
 using System.IO;
+using System.Collections;
 using NetOffice.ExcelApi;
-public class Cadastro<T>{
-    private int codigo {get; set;}
-    private DateTime dataCadastro {get; set;}
-    private void gerarCabecalho(String arquivo, T registro){
+public class Cadastro{
+    public int getUltimaLinha(String arquivo){
+        int contador = 0;
         Application ex = new Application();
-        bool existeArquivo = File.Exists(arquivo);
-        if(!existeArquivo){
-            ex.Workbooks.Add();
-        } else {
+        if(File.Exists(arquivo)){
             ex.Workbooks.Open(arquivo);
-        }
-        int campo = 2;
-        ex.Cells[1, 1].Value = "Código " + registro.GetType().Name; 
-        if(!File.Exists(arquivo) || getUltimaLinha(arquivo) == 1){
-            foreach(var item in registro.GetType().GetProperties()){
-                if(item.PropertyType.IsClass &&  !item.PropertyType.Name.Equals("String")) {
-                    var valor = item.GetValue(registro, null);
-                    foreach(var val in valor.GetType().GetProperties()){
-                        ex.Cells[1, campo].Value = val.Name.ToUpper();
-                        campo++;
-                    }
-                } else {
-                    ex.Cells[1, campo].Value = item.Name.ToUpper();
-                    campo++;
-                }
-            }
-            ex.Cells[1, campo].Value = "DATA CADASTRO";
-        }
-        if(existeArquivo){
-            ex.ActiveWorkbook.Save();
+            do{
+                contador++;
+            } while (ex.Cells[contador,1].Value != null);
+            ex.ActiveWorkbook.Close();
+            ex.Quit();
+            ex.Dispose();
         } else {
-            ex.ActiveWorkbook.SaveAs(arquivo);
+            contador = 1;
         }
-        ex.Quit();
-        ex.Dispose();
-    }
-    public void salvar(String arquivo, T registro){
-        Application ex = new Application();
-        if(!File.Exists(arquivo) || getUltimaLinha(arquivo) == 1){
-            gerarCabecalho(arquivo, registro);
-        }
-        ex.Workbooks.Open(arquivo);
-        int ultimaLinha = getUltimaLinha(arquivo);
-        int campo = 2;
-        this.codigo = ultimaLinha + 1;
-        ex.Cells[ultimaLinha, 1].Value = this.codigo;
-        foreach(var reg in registro.GetType().GetProperties()){
-            var valor = reg.GetValue(registro, null);
-            if(reg.PropertyType.IsClass &&  !reg.PropertyType.Name.Equals("String")) {
-                foreach(var val in valor.GetType().GetProperties()){
-                    ex.Cells[ultimaLinha, campo].Value = val.GetValue(valor, null);
-                    campo++;
-                }
-            } else {
-                ex.Cells[ultimaLinha, campo].Value = valor;
-                campo++;
-            }
-        }
-        ex.Cells[ultimaLinha, campo].Value = DateTime.Now;
-        ex.ActiveWorkbook.Save();
-        ex.Quit();
-        ex.Dispose();
+        return contador;
     }
 
-    public Carro carregarObjeto(int codigo, String arquivo, Carro objeto){
-        Application ex = new Application();
-        ex.Workbooks.Open(arquivo);
-        int linha = 2;
-        int campo = 1;
-        while(!ex.Cells[linha, 1].Value.ToString().Contains(codigo.ToString())){
-            linha++;
-        }
-        foreach(var propriedade in objeto.GetType().GetProperties()){
-            if(propriedade.PropertyType.IsClass &&  !propriedade.PropertyType.Name.Equals("String")) {
-                foreach(var subPropriedade in propriedade.GetType().GetProperties()){
-                    subPropriedade.SetValue(objeto, ex.Cells[linha, campo].Value);
-                    campo++;
-                }
+    public void gerarCabecalho(String arquivo, String[] cabecalho){
+            Application ex = new Application();
+            bool existeArquivo = File.Exists(arquivo);
+            if(!existeArquivo){
+                ex.Workbooks.Add();
             } else {
-                propriedade.SetValue(objeto, ex.Cells[linha, campo].Value);
-                campo++;
+                ex.Workbooks.Open(arquivo);
             }
+            if(!File.Exists(arquivo) || getUltimaLinha(arquivo) == 1){
+                for (int i = 0; i < cabecalho.Length; i++){
+                    ex.Cells[1,i+1].Value = cabecalho[i];
+                }
+            }
+            if(existeArquivo){
+                ex.ActiveWorkbook.Save();
+            } else {
+                ex.ActiveWorkbook.SaveAs(arquivo);
+            }
+            ex.ActiveWorkbook.Close();
+            ex.Quit();
+            ex.Dispose();
         }
-        return objeto;
-    }
 
-    public ArrayList buscar(String arquivo, String campo, String busca ){
+    /*public ArrayList buscar(String arquivo, String campo, String busca ){
         if(File.Exists(arquivo)){
             ArrayList codigos = new ArrayList();
             Application ex = new Application();
@@ -135,8 +89,8 @@ public class Cadastro<T>{
             Console.WriteLine("O arquivo " + arquivo + " não foi encontrado!");
             return null;
         }
-    }
-    public void ler(String arquivo){
+    }*/
+    /*public void ler(String arquivo){
         if(File.Exists(arquivo)){
             Application ex = new Application();
             ex.Workbooks.Open(arquivo);
@@ -168,20 +122,5 @@ public class Cadastro<T>{
         } else {
             Console.WriteLine("O arquivo " + arquivo + " não foi encontrado!");
         }
-    }
-    private static int getUltimaLinha(String arquivo){
-        int contador = 0;
-        Application ex = new Application();
-        if(File.Exists(arquivo)){
-            ex.Workbooks.Open(arquivo);
-            do{
-                contador++;
-            } while (ex.Cells[contador,1].Value != null);
-            ex.Quit();
-            ex.Dispose();
-        } /*else {
-            contador = 1;
-        }*/
-        return contador;
-    }
+    }*/
 }
