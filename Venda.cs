@@ -71,10 +71,8 @@ public class Venda{
             }
             Console.WriteLine();
             while(ex.Cells[linha, 1].Value != null){
-                DateTime data = DateTime.Parse(ex.Cells[linha, 15].Value.ToString());
-                data.ToShortDateString();
-                if(ex.Cells[linha, 15].Value.ToString().Equals("Sim")){
-                    codigos.Add(Int16.Parse(ex.Cells[linha, 1].Value.ToString()));
+                string data = ex.Cells[linha, 15].Value.ToString();
+                if(data.Substring(0, 10) == DateTime.Now.ToShortDateString().ToString()){
                     campo = 1;
                     count++;
                     while(ex.Cells[linha, campo].Value != null){
@@ -85,7 +83,7 @@ public class Venda{
                 }
                 linha++;
             }
-            Console.WriteLine("\n" + count + " Carros disponíveis." + "\n\n");
+            Console.WriteLine("\n" + count + " Carros vendidos hoje." + "\n\n");
             ex.ActiveWorkbook.Close();
             ex.Quit();
             ex.Dispose();

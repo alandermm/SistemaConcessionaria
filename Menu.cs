@@ -41,7 +41,6 @@ public class Menu{
                         }
                         pessoa.salvar(arquivo);
                         break;
-
                 case 2: Carro carro = new Carro();
                         arquivo = path + "Carros.xlsx";
                         if (!File.Exists(arquivo)){
